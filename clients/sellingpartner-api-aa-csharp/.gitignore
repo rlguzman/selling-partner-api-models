@@ -6,5 +6,6 @@ obj
 **/obj
 #ignore .vs directories
 .vs
+.vscode
 #misc
 .DS_Store
