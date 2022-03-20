@@ -48,7 +48,11 @@ namespace {{packageName}}.Client
         /// <param name="request">The RestSharp request object</param>
         private void InterceptRequest(IRestRequest request)
         {
-            lwaAuthorizationSigner.Sign(request);
+            var RDTPresent = request.Parameters.Where((key) => key.Name.Equals("x-amz-access-token", StringComparison.OrdinalIgnoreCase)).ToArray();
+            if (RDTPresent.Length == 0)
+            {
+                lwaAuthorizationSigner.Sign(request);
+            }
             awsSigV4Signer.Sign(request, RestClient.BaseUrl.Host);
         }
 
